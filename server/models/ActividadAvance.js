@@ -10,15 +10,15 @@ const ActividadAvancesSchema = new mongoose.Schema({
         type:String,
         trim:true
     },
-    numActividad:{
-        type:String,
-    },
-    nivel:{
+    nomActividad:{
         type:String,
     },
     avance:{
         type:String,
     },
+    palabraGen:{
+        type:String,
+    }
 
 },
     {

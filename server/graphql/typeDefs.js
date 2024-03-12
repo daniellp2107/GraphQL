@@ -6,11 +6,11 @@ export const typeDefs = gql`
         asesores:[Asesor]
         alumnos:[Alumno]
         niveles:[Nivel]
-        actividadAvance:[ActividadAvance]
+        actividadAvance(alumno:ID):[ActividadAvance]
         obtenerAlumno(id:ID):Alumno
         obtenerAlumnoID:Alumno
         obtenerAsesor(id:ID):Asesor
-        obtenerActividadAvanceID(id:ID):[ActividadAvance]
+        obtenerActividadAvanceID(nomActividad:String,palabraGen:String):ActividadAvance
         obtenerUsuario(token:String):Alumno
         obtenerAlumnosAsesor:[Alumno]
         obtenerNivel(nivel:String):Nivel
@@ -26,7 +26,7 @@ export const typeDefs = gql`
         agregarNivel(input:NivelesInput):Nivel
         agregarActividad(input:ActividadInput):Actividad      
         agregarActividadAvance(input:ActividadAvanceInput):ActividadAvance  
-        actualizarActividadAvance(input:NumAct, nivel:String):ActividadAvance
+        actualizarActividadAvance(input:actualizarActividadAvanceInput):ActividadAvance
     }
 
     type Alumno {
@@ -107,27 +107,32 @@ export const typeDefs = gql`
     }
 
     type ActividadAvance{
-        _id:ID
+        # _id:ID
         id:ID
         idAlumno:ID
         nombreAlumno:String
-        numActividad:String
-        nivel:String
+        nomActividad:String
         avance:String
+        palabraGen:String
         createdAt:String
     }
 
     input ActividadAvanceInput{
-        idAlumno:ID
-        nombreAlumno:String
-        numActividad:String
-        nivel:String
+        nomActividad:String
         avance:String
+        palabraGen:String
+    }
+
+    input actualizarActividadAvanceInput{
+        nomActividad:String
+        avance:String
+        palabraGen:String
     }
 
     type Token{
         token:String
     }
+
 
     input AuthAsesorInput{
         email:String
@@ -139,6 +144,8 @@ export const typeDefs = gql`
         apellidoP:String
     }
 
+    
+
     enum NumAct{
         actUno
         actDos
@@ -148,8 +155,6 @@ export const typeDefs = gql`
         actSeis
         actSiete
         actOcho
-        
-
     }
 
     

@@ -8,17 +8,18 @@ export async function startApolloServer(typeDefs, resolvers) {
     const server = new ApolloServer({
         typeDefs,
         resolvers, 
-        
 
     });
     const {url} = await startStandaloneServer(server,{
         listen:{port:4000},
         context:async({req})=>{
             // authScope: getScope(req.headers.authorization);
-            // console.log(req.headers['authorization']);
+            // console.log(authScope);
+            console.log(req.headers['authorization']);
             const token= req.headers['authorization'] || '';
+            console.log("token: ",token);
             try {
-                const usuario = jwt.verify(token.replace('Bearer ',''),process.env.PALABRA_SECRETA );
+                const usuario =jwt.verify(token.replace('Bearer ',''),process.env.PALABRA_SECRETA);
                 console.log('usuario ctx ',usuario);
                 return usuario;
             } catch (error) {
